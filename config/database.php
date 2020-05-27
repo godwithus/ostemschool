@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'system'),
 
     /*
     |--------------------------------------------------------------------------
@@ -59,6 +59,26 @@ return [
             'strict' => true,
             'engine' => null,
             'unix_socket' => '/opt/bitnami/mysql/tmp/mysql.sock',
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+
+        'system' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL'),
+            'host' => env('TENANCY_HOST', '127.0.0.1'),
+            'port' => env('TENANCY_PORT', '3306'),
+            'database' => env('TENANCY_DATABASE', 'ostem_school'),
+            'username' => env('TENANCY_USERNAME', 'root'),
+            'password' => env('TENANCY_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
