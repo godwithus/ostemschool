@@ -28,7 +28,7 @@
                     <img src="{{ asset('sites_logo/default.png') }}" class="rounded img-thumbnail mt-3" alt="{{ $site->name }}">
                 @endif
                 <div class="card-body">
-                <h5 class="card-title"> <a href="http://{{ $site->domain}}.com.test" class="post_list_title"> {{ $site->name }} </a> </h5>
+                <h5 class="card-title"> <a href="http://{{ $site->domain}}.ostemschool.test" class="post_list_title"> {{ $site->name }} </a> </h5>
                 </div>
             </div>
         @endforeach

@@ -19,8 +19,9 @@ class CreateThreadsTable extends Migration
             $table->integer('user_id');
             $table->string('title');
             $table->string('slug');
+            $table->integer('department');
             $table->string('feature_image')->nullable();
-            $table->integer('stick_post')->nullable();
+            $table->string('stick_post')->nullable();
             $table->text('content');
             $table->timestamps();
         });

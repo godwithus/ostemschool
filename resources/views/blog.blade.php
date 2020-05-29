@@ -7,20 +7,26 @@
 @extends('layouts.app')
 
 
+@section('title')
+<title>Articles From {{ $getByDomain->name }} :: OSTEM School</title>
+@endsection
+
+
+
 @section('content')
 
 <div class="container">
 
-    
         <div class="jumbotron jumbotron_edited">
         <div class="text-center">
-        <h1 class="display-3 site_name"> 
-            @if($getByDomain != null)
-                Articles From : <b> {{ $getByDomain->name }} </b> 
-            @else
-                Articles From : <b> {{ 'Community Platform' }} </b> 
-            @endif
+            <h1 class="display-3 site_name"> 
+                @if($getByDomain != null)
+                    Articles From : <b> {{ $getByDomain->name }} </b> 
+                @else
+                    Articles From : <b> {{ 'Community Platform' }} </b> 
+                @endif
             </h1>
+            @include('layouts.partials.search')
         </div>
         </div>
 

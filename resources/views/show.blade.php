@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('title')
+<title>Articles :: {{ $thread->title }} :: OSTEM School</title>
+@endsection
+
+
 @section('content')
 
 <?php 
@@ -26,10 +31,10 @@
 @include('layouts.partials.errors')
 
 <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 inner_post_body mb-5">
-
+@include('layouts.partials.search') <br>
 @include('layouts.partials.sections_menu')
 
-<h1 class="text-dark font-serif pt-2 mb-4">{{ $thread->title }}</h1> <div class="media py-1"><a href="http://blog.test/blog/Emmanuel" class="router-link-active">
+<h1 class="text-dark font-serif pt-2 mb-4">{{ $thread->title }}</h1> <div class="media py-1"><a href="#" class="router-link-active">
 
 
             @if($thread->user->pic != '')

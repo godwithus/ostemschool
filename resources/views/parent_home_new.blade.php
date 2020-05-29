@@ -43,17 +43,17 @@
             </div>
         </header>
 
-  <main role="main" class="inner cover mt-5 py-5">
-    <h1 class="cover-heading">
-            
-        <div class="input-group mb-3">
-        <input type="text" class="form-control" style="height: 50px;" placeholder="Browse Site" aria-label="Recipient's username" aria-describedby="button-addon2">
-        <div class="input-group-append">
-            <button class="btn btn-primary" type="button" id="button-addon2">Search</button>
-        </div>
-        </div>
-    </h1>
-  </main>
+        <main role="main" class="inner cover mt-5 py-5">
+            <h1 class="cover-heading">
+                    
+                <div class="input-group mb-3">
+                <input type="text" class="form-control" style="height: 50px;" placeholder="Browse Site" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button" id="button-addon2">Search</button>
+                </div>
+                </div>
+            </h1>
+        </main>
 
   <div class="card">
         <div class="card-body">
@@ -73,31 +73,23 @@
     </div>
 
 
-<h1 class="mb-5">Featured Site</h1>
-  <div class="card-columns">
-    @foreach($sites as $site)
-        <div class="card">
-            @if($site->logo != '')
-                <img src="{{ asset('sites_logo/'.$site->logo) }}" class="rounded img-thumbnail mt-5" alt="{{ $site->name }}">
-            @else
-                <img src="{{ asset('sites_logo/default.png') }}" class="rounded img-thumbnail mt-5" alt="{{ $site->name }}">
-            @endif
-            <div class="card-body">
-            <h5 class="card-title"> <a href="http://{{ $site->domain}}.com.test" class="black"> {{ $site->name }} </a> </h5>
-            </div>
+    <h1 class="mb-5">Featured Site</h1>
+        <div class="card-columns">
+            @foreach($sites as $site)
+                <div class="card">
+                    @if($site->logo != '')
+                        <img src="{{ asset('sites_logo/'.$site->logo) }}" class="rounded img-thumbnail mt-5" alt="{{ $site->name }}">
+                    @else
+                        <img src="{{ asset('sites_logo/default.png') }}" class="rounded img-thumbnail mt-5" alt="{{ $site->name }}">
+                    @endif
+                    <div class="card-body">
+                    <h5 class="card-title"> <a href="http://{{ $site->domain}}.ostemschool.test" class="black"> {{ $site->name }} </a> </h5>
+                    </div>
+                </div>
+            @endforeach
         </div>
-    @endforeach
-</div>
 
-
-
-
-  <footer class="mastfoot mt-auto">
-    <div class="inner">
-      <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
     </div>
-  </footer>
-</div>
 
 </div>
 

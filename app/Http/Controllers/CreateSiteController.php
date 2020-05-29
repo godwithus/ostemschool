@@ -106,7 +106,7 @@ class CreateSiteController extends Controller
             $upload_path = 'sites_logo';
             // dd(public_path('/'.$upload_path.'/'.$new_name));
             $img = Image::make(public_path('/'.$upload_path.'/'.$new_name));
-            $img->resize(null, 100, function ($constraint) {
+            $img->resize(null, 200, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
             });
@@ -115,19 +115,12 @@ class CreateSiteController extends Controller
             $img->save();
         }
         
-        $bg_new_name = '';
-        if ($request->file('bg') != '') {
-            $bg_image = $request->file('bg');
-            $bg_new_name = rand() . '_'. auth()->user()->id . '.' . $bg_image->getClientOriginalExtension();
-        $bg_image->move(public_path('sites_bg'), $bg_new_name);
-        }
-
         $createSite = new CreateSite();
         $createSite->domain = $request->domain;
         $createSite->name    = $request->name;
         $createSite->description    = $request->description;
         $createSite->logo    = $new_name;
-        $createSite->bg    = $bg_new_name;
+        $createSite->bg    = '';
         $createSite->user_id = auth()->user()->id;
         $createSite->save();
 
@@ -187,7 +180,7 @@ class CreateSiteController extends Controller
         $logo = $request->file('logo');
         $bg = $request->file('bg');
         
-        $uploadLogo = $imageUpload->uploadImage($createSite, $logo, 'sites_logo', 'logo', 100);
+        $uploadLogo = $imageUpload->uploadImage($createSite, $logo, 'sites_logo', 'logo', 200);
         $uploadBg = $imageUpload->uploadImage($createSite, $bg, 'sites_bg', 'bg', 300);
         
         

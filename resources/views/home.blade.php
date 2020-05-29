@@ -17,6 +17,11 @@
 
 @extends('layouts.app')
 
+@section('title')
+<title>Welcome to {{ $getByDomain->name }} :: OSTEM School</title>
+@endsection
+
+
 @section('content')
 
 <div class="container">
@@ -38,9 +43,9 @@
     
   @if(Auth::check() && $getByDomain->user_id == Auth::user()->id)
     @include('layouts.partials.edit_site_details')
-    <br>
-    <button class="btn btn-success btn-sm"  data-toggle="modal" data-target="#editSite" >edit</button> 
-    <a href="{{ route('create.post') }}" class="btn btn-secondary">Create New Article</a>
+    
+    <button class="btn btn-default btn-sm"  data-toggle="modal" data-target="#editSite" ><img src="{{ asset('images/pen.png') }}" class="ml-3" style="width: 10px; height: 10px;"> edit</button>
+    <a href="{{ route('create.post') }}" class="btn btn-secondary btn-sm">Create New Article</a>
 
   @elseif(Auth::check() && $creator > 0)
 
