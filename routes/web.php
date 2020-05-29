@@ -17,7 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+
+Route::get('/sitesearch', 'ThreadController@sitesearch')->name('site.search');
+
+Auth::routes(['verify' => true]);
  
 Route::get('/stickyPostList', 'HomeController@stickyPostList')->name('sticky.post.list');
 Route::get('/noneStickyPostList', 'HomeController@noneStickyPostList')->name('none.sticky.post.list');
@@ -28,7 +31,7 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/show/{id}/{slug}', 'HomeController@show')->name('show.post');
 
-Route::get('/allblog', 'ThreadController@allBlog')->name('allBlog');
+Route::get('/articles', 'ThreadController@allBlog')->name('allBlog');
 Route::get('/live_search/site', 'CreateSiteController@action')->name('live_search.site');
 
 
@@ -77,8 +80,4 @@ Route::middleware(['auth'])->group(function(){
         
     });
 
-});
-
-Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
-    \UniSharp\LaravelFilemanager\Lfm::routes();
 });

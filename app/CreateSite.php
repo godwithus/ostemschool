@@ -27,7 +27,7 @@ class CreateSite extends Model
 
     public function parentDomain()
     {
-        return 'com.test';
+        return 'ostemschool.test';
     }
     
     public function thread()

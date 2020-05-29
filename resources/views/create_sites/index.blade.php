@@ -21,7 +21,7 @@
                                 
                                 <input id="name" type="text" class="form-control @error('domain') is-invalid @enderror" name="domain" value="{{ old('domain') }}" required autocomplete="domain" autofocus>
                                 <span class="input-group-btn">
-                                    <button class="btn btn-secondary" type="button" style="border-radius: 0px;"><b>.com.show</b></button>
+                                    <button class="btn btn-secondary" type="button" style="border-radius: 0px;"><b>.ostem.school</b></button>
                                 </span>
                                 @error('domain')
                                     <span class="invalid-feedback" role="alert">
@@ -52,34 +52,6 @@
                                 <textarea id="description" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" required ></textarea>
 
                                 @error('description')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="logo" class="col-md-4 col-form-label text-md-right">{{ __('Logo') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="logo" type="file" class="form-control @error('logo') is-invalid @enderror" name="logo" autocomplete="new-logo">
-
-                                @error('logo')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="bg" class="col-md-4 col-form-label text-md-right">{{ __('Background Image') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="bg" type="file" class="form-control @error('bg') is-invalid @enderror" name="bg" autocomplete="new-bg">
-
-                                @error('bg')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

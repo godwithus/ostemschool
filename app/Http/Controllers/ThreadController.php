@@ -30,6 +30,29 @@ class ThreadController extends Controller
         return view('blog.create', compact('dept'));
     }
 
+    public function sitesearch(Request $request)
+    {
+        // We want to get the Domain of the Current Domain the Use is ON
+        $currentDomain = explode('.', $_SERVER['HTTP_HOST']);
+
+        $domain = new CreateSite();
+        $getByDomain = $domain->getUrl();
+
+        $url_id = $getByDomain->getUrl()->id;
+
+        $threads = $users = DB::table('threads')
+            ->inRandomOrder()
+            ->paginate(20);
+
+    	if($request->has('search')){
+            $threads = Thread::where('site_id',  $url_id)
+                    ->search($request->get('search'))
+                    ->paginate(20);	
+        }
+        
+        return view('sitesearch', compact('threads', 'getByDomain', 'threads'));
+    }    
+
     public function allBlog()
     {
         // We want to get the Domain of the Current Domain the Use is ON
@@ -48,7 +71,7 @@ class ThreadController extends Controller
             
             return view('blog', compact('getByDomain', 'threads'));
         } 
-        elseif (count($currentDomain) == 2 &&  $currentDomain[0] == 'com' && $currentDomain[1] == 'test') {
+        elseif (count($currentDomain) == 2 &&  $currentDomain[0] == 'ostemschool' && $currentDomain[1] == 'test') {
             
             $threads = $users = DB::table('threads')
                     ->inRandomOrder()

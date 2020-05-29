@@ -27,7 +27,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    @yield('title')
 
     <!-- Scripts -->
 
@@ -38,7 +38,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/adminlyte.css') }}" rel="stylesheet">
-
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
  
@@ -176,6 +176,12 @@
   border-radius: 10px;
   padding: 10px;
 }
+
+.form-control:focus {
+    outline: 0 !important;
+    border-color: initial;
+    box-shadow: none;
+}
     </style>
 </head>
 <body style="background-image: url({{ asset('sites_bg/'.$bg) }}); background-position: center; background-size: cover; background-attachment:fixed;">
@@ -183,7 +189,9 @@
     <header class="masthead">
       <h4>&nbsp;</h4>
       <nav class="navbar navbar-expand-md navbar-light bg-dark rounded mb-3 ">
-      <a class="navbar-brand" href="{{ route('home') }}">Logo</a>
+      <a class="navbar-brand" href="{{ route('home') }}">
+        <img src="{{ asset('images/logo.png') }}"  height="40"/>
+      </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon" style="background-color: #ffffff !important;"></span>
         </button>
@@ -251,6 +259,13 @@
         </div>
       </nav>
     </header>
+
+  @if(Auth::check() && Auth::user()->email_verified_at == '')
+    <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
+        @csrf
+        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
+    </form>
+  @endif
 
         <main class="py-2">
             @yield('content')

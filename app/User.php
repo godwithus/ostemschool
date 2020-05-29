@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use App\File;
 use Image;
 
-class User extends Authenticatable
+class User extends Authenticatable Implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -38,8 +38,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    
+ 
     public function uploadImage($model_name_and_find_id, $file_name, $upload_path, $column_name, $compressionRatio)
     {
         // $model_name_and_find_id = CreateSite::find($id);

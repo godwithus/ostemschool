@@ -91,12 +91,14 @@
 
 @endsection
 
+
 @section('script_holder')
   <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
   <script>
     var editor_config = {
       path_absolute : "/",
       selector: "textarea.my-editor",
+      image_dimensions: false,
       plugins: [
         "advlist autolink lists link image charmap print preview hr anchor pagebreak",
         "searchreplace wordcount visualblocks visualchars code fullscreen",
