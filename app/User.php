@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use App\File;
 use Image;
 
-class User extends Authenticatable Implements MustVerifyEmail
+class User extends Authenticatable 
 {
     use Notifiable;
 

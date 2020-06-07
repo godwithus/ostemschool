@@ -18,9 +18,13 @@ Route::get('/', function () {
 });
 
 
+Route::get('check_result', function () {
+    return view('under_construction');
+})->name('check_result');
+
 Route::get('/sitesearch', 'ThreadController@sitesearch')->name('site.search');
 
-Auth::routes(['verify' => true]);
+Auth::routes();
  
 Route::get('/stickyPostList', 'HomeController@stickyPostList')->name('sticky.post.list');
 Route::get('/noneStickyPostList', 'HomeController@noneStickyPostList')->name('none.sticky.post.list');
@@ -33,6 +37,8 @@ Route::get('/show/{id}/{slug}', 'HomeController@show')->name('show.post');
 
 Route::get('/articles', 'ThreadController@allBlog')->name('allBlog');
 Route::get('/live_search/site', 'CreateSiteController@action')->name('live_search.site');
+
+Route::post('/loadmore/load_data', 'AddMediaController@load_data')->name('loadmore.load_data');
 
 
 Route::middleware(['auth'])->group(function(){
@@ -77,6 +83,10 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/edit_post/{id}', 'ThreadController@edit')->name('edit.post');
         Route::post('/update/{id}', 'ThreadController@update')->name('update.post');
         Route::get('/delete/{id}', 'ThreadController@destroy')->name('delete.post');
+
+        Route::post('/ajax_upload/action', 'AddMediaController@action')->name('ajaxupload.action');
+        Route::get('/delete_image/{id}', 'AddMediaController@destroy')->name('delete.post');
+        
         
     });
 

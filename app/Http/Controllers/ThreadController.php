@@ -7,7 +7,8 @@ use App\Thread;
 use App\User;
 use App\CreateSite;
 use App\Department;
-use Illuminate\Http\Request;
+use App\AddMedia;
+use Illuminate\Http\Request; 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -24,10 +25,22 @@ class ThreadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $dept = Department::all();
-        return view('blog.create', compact('dept'));
+        $domain = new CreateSite();
+        $getByDomain = $domain->getUrl();
+
+        $dept = Department::all();                    
+
+        $addMedias = AddMedia::where('site_id', $getByDomain->getUrl()->id)->orderByDesc('updated_at')->paginate(1);
+
+        $addMediasCount = AddMedia::where('site_id', $getByDomain->getUrl()->id)->count();
+
+        if ($request->ajax()) {
+            return \Response::json(\View::make('choose_image', array('addMedias' => $addMedias))->render());
+        }
+
+        return view('blog.create', compact('dept', 'addMedias', 'addMediasCount'));
     }
 
     public function sitesearch(Request $request)
@@ -79,7 +92,17 @@ class ThreadController extends Controller
 
             $getByDomain = '';
 
-            return view('allBlog', compact('getByDomain', 'threads'));
+            return view('allblog', compact('getByDomain', 'threads'));
+        }
+        elseif (count($currentDomain) == 2 &&  $currentDomain[0] == 'ostem' && $currentDomain[1] == 'school') {
+            
+            $threads = $users = DB::table('threads')
+                    ->inRandomOrder()
+                    ->paginate(20);
+
+            $getByDomain = '';
+
+            return view('allblog', compact('getByDomain', 'threads'));
         }
         else{
             // If any error occur we ABORT with error message 
@@ -174,11 +197,15 @@ class ThreadController extends Controller
      */
     public function edit($id)
     {
+        $domain = new CreateSite();
+        $getByDomain = $domain->getUrl();
+
         $id = (Int)$id;
         $thread = Thread::where('id', $id)->first();
+        $dept = Department::all(); 
 
         if ($thread != null) {
-            return view('blog.edit', compact('thread'));
+            return view('blog.edit', compact('thread', 'dept', 'getByDomain'));
         }
         
         if (auth()->user()->id != $thread->user_id) {

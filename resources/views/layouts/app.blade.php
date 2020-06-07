@@ -31,7 +31,7 @@
 
     <!-- Scripts -->
 
-    <!-- Fonts -->
+    <!-- Fonts --> 
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
@@ -41,9 +41,12 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- 
 
     <style>
+
+        .navbar-collapse.in {
+            display: block !important;
+        }
 
         nav > a, #navbarTogglerDemo02 > ul > li > a {
             color: #ffffff !important;
@@ -201,8 +204,14 @@
             <li class="nav-item active">
               <a class="nav-link" href="{{ route('allBlog') }}" >Articles <span class="sr-only">(current)</span></a>
             </li>
+            
             <li class="nav-item">
-              <a class="nav-link" href="#"> Past Questions </a>
+              <a class="nav-link" href="https://bodmas.xyz" target="_blank"> Past Questions </a>
+            </li>
+
+
+            <li class="nav-item">
+              <a class="nav-link" href="https://theqna.world" target="_blank"> Forum </a>
             </li>
 
             @if(Auth::check())
@@ -215,7 +224,7 @@
 
            
             <li class="nav-item">
-              <a class="nav-link" href="index.html#">Check Result</a>
+              <a class="nav-link" href="{{ route('check_result') }}">Check Result</a>
             </li>
 
 
@@ -260,13 +269,6 @@
       </nav>
     </header>
 
-  @if(Auth::check() && Auth::user()->email_verified_at == '')
-    <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
-        @csrf
-        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
-    </form>
-  @endif
-
         <main class="py-2">
             @yield('content')
         </main>
@@ -274,6 +276,7 @@
 
     
     <!-- Scripts -->
+    <script src="{{ asset('js/clipboard.min.js') }}" defer></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/popper.min.js') }}" defer></script>
     <script src="{{ asset('js/bootstrap.min.js') }}" defer></script>

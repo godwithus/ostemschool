@@ -77,7 +77,12 @@
             </li>
            
             <li class="nav-item">
-              <a class="nav-link" href="index.html#">Check Result</a>
+              <a class="nav-link" href="https://bodmas.xyz" target="_blank"> Past Questions </a>
+            </li>
+
+
+            <li class="nav-item">
+              <a class="nav-link" href="https://theqna.world" target="_blank"> Forum </a>
             </li>
 
 
@@ -123,14 +128,6 @@
         </div>
       </nav>
     </header>
-
-    
-    @if(Auth::check() && Auth::user()->email_verified_at == '')
-      <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
-          @csrf
-          <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
-      </form>
-    @endif
 
     <main class="py-2">
             @yield('content')

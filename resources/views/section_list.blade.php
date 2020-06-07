@@ -23,6 +23,9 @@
                 Articles From : <b> {{ 'Community Platform' }} </b> 
             @endif
             </h1>
+
+            @include('layouts.partials.search')
+
         </div>
         </div>
 
