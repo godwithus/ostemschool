@@ -10,13 +10,17 @@
 <div class="col-md-8">
 
 
+    @include('layouts.partials.session_report')
+    @include('layouts.partials.errors')
+    @include('layouts.partials.add_media')
+
     @include('layouts.partials.admin_menu')
     @include('layouts.partials.session_report')
+    @include('layouts.partials.uploaded_images')
 
       <div class="card">
           <div class="card-body">
 
-      @include('layouts.partials.errors')
 
       <form action="{{ route('update.post', $thread->id) }}" method="post" role="form" id="create-thread-form" enctype="multipart/form-data">
 
@@ -39,6 +43,10 @@
         <input type="hidden" class="form-control" placeholder="Enter ..."  name="site_id" 
         value="{{ $getByDomain->id }}">
 
+        
+        <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addMedia"> Add Image</button>
+        <button type="button" class="btn btn-secondary mb-3" data-toggle="modal" data-target="#showImages"> Choose Image</button>
+
         <div class="row">
           <div class="col-sm-12">
             <!-- textarea -->
@@ -48,6 +56,18 @@
             </div>
           </div>
         </div>
+
+        
+        <div class="form-group">
+          <label for="exampleFormControlSelect2"> Select Article Section </label>
+          <select class="form-control" name="department">
+            <option> Choose a Department  </option>
+            @foreach($dept as $eachDept)
+              <option value="{{ $eachDept->id }}" <?php if($eachDept->id == $thread->department){ echo "selected='selected'";} ?> > {{ $eachDept->name }} </option>
+            @endforeach
+          </select>
+        </div>
+
 
         <div class="row">
           <div class="col-sm-12">
@@ -86,42 +106,5 @@
 @endsection
 
 @section('script_holder')
-  <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-  <script>
-    var editor_config = {
-      path_absolute : "/",
-      selector: "textarea.my-editor",
-      plugins: [
-        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-        "searchreplace wordcount visualblocks visualchars code fullscreen",
-        "insertdatetime media nonbreaking save table contextmenu directionality",
-        "emoticons template paste textcolor colorpicker textpattern"
-      ],
-      toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
-      relative_urls: false,
-      file_browser_callback : function(field_name, url, type, win) {
-        var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
-        var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
-
-        var cmsURL = editor_config.path_absolute + 'laravel-filemanager?field_name=' + field_name;
-        if (type == 'image') {
-          cmsURL = cmsURL + "&type=Images";
-        } else {
-          cmsURL = cmsURL + "&type=Files";
-        }
-
-        tinyMCE.activeEditor.windowManager.open({
-          file : cmsURL,
-          title : 'Filemanager',
-          width : x * 0.8,
-          height : y * 0.8,
-          resizable : "yes",
-          close_previous : "no"
-        });
-      }
-    };
-
-    tinymce.init(editor_config);
-  </script>
-
+  @include('layouts.partials.extra_added_script')
 @endsection

@@ -27,6 +27,12 @@ class CreateSite extends Model
 
     public function parentDomain()
     {
+        $currentDomain = @explode('.', $_SERVER['HTTP_HOST']);
+        
+        if (count($currentDomain) == 2 &&  $currentDomain[0] == 'ostem' && $currentDomain[1] == 'school') {
+            return 'ostem.school';
+        }
+
         return 'ostemschool.test';
     }
     

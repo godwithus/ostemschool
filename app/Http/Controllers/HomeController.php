@@ -82,7 +82,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $currentDomain = explode('.', $_SERVER['HTTP_HOST']);
+        $currentDomain = @explode('.', $_SERVER['HTTP_HOST']);
 
         // We want to get the Domain of the Current Domain the Use is ON
         $domain = new CreateSite();
@@ -128,6 +128,15 @@ class HomeController extends Controller
 
             return view('parent_home', compact('sites'));
         }
+        elseif (count($currentDomain) == 2 &&  $currentDomain[0] == 'ostem' && $currentDomain[1] == 'school') {
+            
+            $sites = $users = DB::table('create_sites')
+                    ->limit(10)
+                    ->inRandomOrder()
+                    ->get();
+
+            return view('parent_home', compact('sites'));
+        }
         else{
             // If any error occur we ABORT with error message
             abort(403, 'Something Went Wrong While Loading the Home Page');
@@ -154,8 +163,7 @@ class HomeController extends Controller
             
             if ($thread != null) {
 
-                
-                $comments = Comment::where('thread_id', $id)->orderByDesc('updated_at')->paginate(3);
+                $comments = Comment::where('thread_id', $id)->orderByDesc('updated_at')->paginate(1);
                 $commentsCount = Comment::where('thread_id', $id)->count();
 
                 if ($request->ajax()) {
@@ -164,7 +172,7 @@ class HomeController extends Controller
 
                 $commentsCount = Comment::where('thread_id', $id)->count();
 
-                return view('show', compact('thread', 'comments', 'commentsCount', 'getByDomain', 'category'));
+                return view('show', compact('thread', 'comments', 'commentsCount', 'getByDomain'));
             }
 
             abort(403, 'Something Went Wrong While Loading the While loading the Expected BLog Post');

@@ -28,7 +28,18 @@
                     <img src="{{ asset('sites_logo/default.png') }}" class="rounded img-thumbnail mt-3" alt="{{ $site->name }}">
                 @endif
                 <div class="card-body">
-                <h5 class="card-title"> <a href="http://{{ $site->domain}}.ostemschool.test" class="post_list_title"> {{ $site->name }} </a> </h5>
+                
+                <?php $currentDomain = explode('.', $_SERVER['HTTP_HOST']); ?>
+                
+                <?php if (count($currentDomain) == 2 &&  $currentDomain[0] == 'ostem' && $currentDomain[1] == 'school') { ?>
+
+                <h5 class="card-title"> <a href="https://{{ $site->domain}}.ostem.school" class="post_list_title"> {{ $site->name }} </a> </h5>
+
+                <?php } else{ ?>
+                 
+                 <h5 class="card-title"> <a href="http://{{ $site->domain}}.ostemschool.test" class="post_list_title"> {{ $site->name }} </a> </h5>
+
+                <?php } ?>
                 </div>
             </div>
         @endforeach
